@@ -1,0 +1,29 @@
+name: ci
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+
+      - name: Run tests 🧪
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v2
+        env:
+          # email test results after the tests are finished
+          EMAIL_RESULTS_TO: ${{ secrets.EMAIL_RESULTS_TO }}
+          # pass SendGrid settings to the plugin via environment variables
+          SENDGRID_HOST: ${{ secrets.SENDGRID_HOST }}
+          SENDGRID_PORT: ${{ secrets.SENDGRID_PORT }}
+          SENDGRID_USER: ${{ secrets.SENDGRID_USER }}
+          SENDGRID_PASSWORD: ${{ secrets.SENDGRID_PASSWORD }}
+          SENDGRID_FROM: ${{ secrets.SENDGRID_FROM }}
+
+      - name: Semantic Release 🚀
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
