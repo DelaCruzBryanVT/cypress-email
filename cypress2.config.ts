@@ -28,9 +28,9 @@ export default defineConfig({
     },
     excludeSpecPattern: ['*.js'],
     specPattern: [
-      'cypress/e2e/test.spec.ts',
-      'cypress/e2e/test2.spec.ts',
-     
+      
+      'cypress/e2e/test3.spec.ts',
+      
 
 
 
